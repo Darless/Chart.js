@@ -150,8 +150,22 @@ module.exports = DatasetController.extend({
 			dataset: dataset,
 			datasetIndex: me.index,
 			defaultOptions: lineElementOptions,
-			context: {
-				dataIndex: index
+			contextCallback: function(ctx) {
+				var current = ctx.dataset.data[index];
+				var previous;
+				var hasGap = false;
+				if (index >= 0) {
+					previous = ctx.dataset.data[index - 1];
+					if (previous === undefined || previous === null) {
+						hasGap = true;
+					}
+				}
+				return {
+					dataIndex: index,
+					previous: previous,
+					current: current,
+					hasGap: hasGap,
+				};
 			},
 			elementOptions: {
 				tension: 'tension',

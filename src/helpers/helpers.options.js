@@ -146,7 +146,6 @@ module.exports = {
 		var dataset = settings.dataset;
 		var elementOptions = settings.elementOptions;
 		var custom = settings.custom || {};
-		var contextCustom = settings.context || {};
 		var index = settings.index;
 		var defaultOptions = settings.defaultOptions || chart.options;
 		var keys = Object.keys(elementOptions);
@@ -160,7 +159,13 @@ module.exports = {
 			dataset: dataset,
 			datasetIndex: settings.datasetIndex,
 		};
-		helpers.extend(context, contextCustom);
+
+		// Update the context object with response from callback
+		if (settings.contextCallback) {
+			helpers.extend(
+				context,
+				settings.contextCallback(context));
+		}
 
 		for (ix = 0; ix < keys.length; ix++) {
 			key = keys[ix];
