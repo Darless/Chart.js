@@ -45,6 +45,7 @@ module.exports = DatasetController.extend({
 		var line = meta.dataset;
 		var points = meta.data || [];
 		var chartOptions = me.chart.options;
+		var lineElementOptions = chartOptions.elements.line;
 		var scale = me.getScaleForId(meta.yAxisID);
 		var i, ilen;
 		var dataset = me.getDataset();
@@ -54,8 +55,8 @@ module.exports = DatasetController.extend({
 			dataset: dataset,
 			datasetIndex: me.index,
 			custom: line.custom || {},
+			defaultOptions: lineElementOptions,
 			elementOptions: {
-				spanGaps: 'spanGaps',
 				tension: 'tension',
 				backgroundColor: 'backgroundColor',
 				borderWidth: 'borderWidth',
@@ -67,7 +68,7 @@ module.exports = DatasetController.extend({
 				fill: 'fill',
 				steppedLine: 'steppedLine',
 				cubicInterpolationMode: 'cubicInterpolationMode',
-			}
+			},
 		});
 
 		// Update Line
@@ -86,7 +87,7 @@ module.exports = DatasetController.extend({
 			// Model
 			line._model = {
 				// Appearance
-				spanGaps: options.spanGaps,
+				spanGaps: valueOrDefault(dataset.spanGaps, options.spanGaps),
 				tension: options.tension,
 				backgroundColor: options.backgroundColor,
 				borderWidth: options.borderWidth,
@@ -128,6 +129,8 @@ module.exports = DatasetController.extend({
 		var yScale = me.getScaleForId(meta.yAxisID);
 		var xScale = me.getScaleForId(meta.xAxisID);
 		var x, y;
+		var chartOptions = me.chart.options;
+		var lineElementOptions = chartOptions.elements.line;
 
 		var options = me._resolveElementOptions(point, index);
 
@@ -146,11 +149,11 @@ module.exports = DatasetController.extend({
 			chart: me.chart,
 			dataset: dataset,
 			datasetIndex: me.index,
+			defaultOptions: lineElementOptions,
 			context: {
 				dataIndex: index
 			},
 			elementOptions: {
-				spanGaps: 'spanGaps',
 				tension: 'tension',
 				backgroundColor: 'backgroundColor',
 				borderWidth: 'borderWidth',

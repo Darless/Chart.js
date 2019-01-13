@@ -148,6 +148,7 @@ module.exports = {
 		var custom = settings.custom || {};
 		var contextCustom = settings.context || {};
 		var index = settings.index;
+		var defaultOptions = settings.defaultOptions || chart.options;
 		var keys = Object.keys(elementOptions);
 		var ix;
 		var values = {};
@@ -167,7 +168,7 @@ module.exports = {
 				custom[key],
 				dataset[elementOptions[key]],
 				dataset[key],
-				chart.options[key]
+				defaultOptions[key]
 			], context, index);
 		}
 		return values;
