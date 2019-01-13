@@ -48,17 +48,33 @@ defaults._set('global', {
 			generateLabels: function(chart) {
 				var data = chart.data;
 				return helpers.isArray(data.datasets) ? data.datasets.map(function(dataset, i) {
+					var options = helpers.options.resolveOptions({
+						chart: chart,
+						dataset: dataset,
+						datasetIndex: i,
+						elementOptions: {
+							text: 'label',
+							fillStyle: 'backgroundColor',
+							lineCap: 'borderCapStyle',
+							lineDash: 'borderDash',
+							lineDashOffset: 'borderDashOffset',
+							lineJoin: 'borderJoinStyle',
+							lineWidth: 'borderWdith',
+							strokeStyle: 'borderColor',
+							pointStyle: 'pointStyle',
+						},
+					});
 					return {
-						text: dataset.label,
-						fillStyle: (!helpers.isArray(dataset.backgroundColor) ? dataset.backgroundColor : dataset.backgroundColor[0]),
+						text: options.text,
+						fillStyle: options.fillStyle,
 						hidden: !chart.isDatasetVisible(i),
-						lineCap: dataset.borderCapStyle,
-						lineDash: dataset.borderDash,
-						lineDashOffset: dataset.borderDashOffset,
-						lineJoin: dataset.borderJoinStyle,
-						lineWidth: dataset.borderWidth,
-						strokeStyle: dataset.borderColor,
-						pointStyle: dataset.pointStyle,
+						lineCap: options.lineCap,
+						lineDash: options.lineDash,
+						lineDashOffset: options.lineDashOffset,
+						lineJoin: options.lineJoin,
+						lineWidth: options.lineWidth,
+						strokeStyle: options.strokeStyle,
+						pointStyle: options.pointStyle,
 
 						// Below is extra data used for toggling the datasets
 						datasetIndex: i

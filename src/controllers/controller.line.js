@@ -44,17 +44,34 @@ module.exports = DatasetController.extend({
 		var meta = me.getMeta();
 		var line = meta.dataset;
 		var points = meta.data || [];
-		var options = me.chart.options;
-		var lineElementOptions = options.elements.line;
+		var chartOptions = me.chart.options;
 		var scale = me.getScaleForId(meta.yAxisID);
-		var i, ilen, custom;
+		var i, ilen;
 		var dataset = me.getDataset();
-		var showLine = lineEnabled(dataset, options);
+		var showLine = lineEnabled(dataset, chartOptions);
+		var options = helpers.options.resolveOptions({
+			chart: me.chart,
+			dataset: dataset,
+			datasetIndex: me.index,
+			custom: line.custom || {},
+			elementOptions: {
+				spanGaps: 'spanGaps',
+				tension: 'tension',
+				backgroundColor: 'backgroundColor',
+				borderWidth: 'borderWidth',
+				borderColor: 'borderColor',
+				borderCapStyle: 'borderCapStyle',
+				borderDash: 'borderDash',
+				borderDashOffset: 'borderDashOffset',
+				borderJoinStyle: 'borderJoinStyle',
+				fill: 'fill',
+				steppedLine: 'steppedLine',
+				cubicInterpolationMode: 'cubicInterpolationMode',
+			}
+		});
 
 		// Update Line
 		if (showLine) {
-			custom = line.custom || {};
-
 			// Compatibility: If the properties are defined with only the old name, use those values
 			if ((dataset.tension !== undefined) && (dataset.lineTension === undefined)) {
 				dataset.lineTension = dataset.tension;
@@ -63,26 +80,24 @@ module.exports = DatasetController.extend({
 			// Utility
 			line._scale = scale;
 			line._datasetIndex = me.index;
+			line._options = options;
 			// Data
 			line._children = points;
 			// Model
 			line._model = {
 				// Appearance
-				// The default behavior of lines is to break at null values, according
-				// to https://github.com/chartjs/Chart.js/issues/2435#issuecomment-216718158
-				// This option gives lines the ability to span gaps
-				spanGaps: valueOrDefault(dataset.spanGaps, options.spanGaps),
-				tension: resolve([custom.tension, dataset.lineTension, lineElementOptions.tension]),
-				backgroundColor: resolve([custom.backgroundColor, dataset.backgroundColor, lineElementOptions.backgroundColor]),
-				borderWidth: resolve([custom.borderWidth, dataset.borderWidth, lineElementOptions.borderWidth]),
-				borderColor: resolve([custom.borderColor, dataset.borderColor, lineElementOptions.borderColor]),
-				borderCapStyle: resolve([custom.borderCapStyle, dataset.borderCapStyle, lineElementOptions.borderCapStyle]),
-				borderDash: resolve([custom.borderDash, dataset.borderDash, lineElementOptions.borderDash]),
-				borderDashOffset: resolve([custom.borderDashOffset, dataset.borderDashOffset, lineElementOptions.borderDashOffset]),
-				borderJoinStyle: resolve([custom.borderJoinStyle, dataset.borderJoinStyle, lineElementOptions.borderJoinStyle]),
-				fill: resolve([custom.fill, dataset.fill, lineElementOptions.fill]),
-				steppedLine: resolve([custom.steppedLine, dataset.steppedLine, lineElementOptions.stepped]),
-				cubicInterpolationMode: resolve([custom.cubicInterpolationMode, dataset.cubicInterpolationMode, lineElementOptions.cubicInterpolationMode]),
+				spanGaps: options.spanGaps,
+				tension: options.tension,
+				backgroundColor: options.backgroundColor,
+				borderWidth: options.borderWidth,
+				borderColor: options.borderColor,
+				borderCapStyle: options.borderCapStyle,
+				borderDash: options.borderDash,
+				borderDashOffset: options.borderDashOffset,
+				borderJoinStyle: options.borderJoinStyle,
+				fill: options.fill,
+				steppedLine: options.steppedLine,
+				cubicInterpolationMode: options.cubicInterpolationMode,
 			};
 
 			line.pivot();
@@ -125,6 +140,30 @@ module.exports = DatasetController.extend({
 		point._options = options;
 		point._datasetIndex = datasetIndex;
 		point._index = index;
+
+		// Line view properties associated to points
+		point._lineOptions = helpers.options.resolveOptions({
+			chart: me.chart,
+			dataset: dataset,
+			datasetIndex: me.index,
+			context: {
+				dataIndex: index
+			},
+			elementOptions: {
+				spanGaps: 'spanGaps',
+				tension: 'tension',
+				backgroundColor: 'backgroundColor',
+				borderWidth: 'borderWidth',
+				borderColor: 'borderColor',
+				borderCapStyle: 'borderCapStyle',
+				borderDash: 'borderDash',
+				borderDashOffset: 'borderDashOffset',
+				borderJoinStyle: 'borderJoinStyle',
+				fill: 'fill',
+				steppedLine: 'steppedLine',
+				cubicInterpolationMode: 'cubicInterpolationMode',
+			}
+		});
 
 		// Desired view properties
 		point._model = {

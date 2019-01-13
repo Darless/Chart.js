@@ -135,5 +135,41 @@ module.exports = {
 				return value;
 			}
 		}
+	},
+
+	/**
+	 * Resolves options based on the settings object provided.
+	 * @param {Object} [settings] - Settings to use for resolving.
+	 */
+	resolveOptions: function(settings) {
+		var chart = settings.chart;
+		var dataset = settings.dataset;
+		var elementOptions = settings.elementOptions;
+		var custom = settings.custom || {};
+		var contextCustom = settings.context || {};
+		var index = settings.index;
+		var keys = Object.keys(elementOptions);
+		var ix;
+		var values = {};
+		var key;
+
+		// Scriptable options
+		var context = {
+			chart: chart,
+			dataset: dataset,
+			datasetIndex: settings.datasetIndex,
+		};
+		helpers.extend(context, contextCustom);
+
+		for (ix = 0; ix < keys.length; ix++) {
+			key = keys[ix];
+			values[key] = helpers.options.resolve([
+				custom[key],
+				dataset[elementOptions[key]],
+				dataset[key],
+				chart.options[key]
+			], context, index);
+		}
+		return values;
 	}
 };
