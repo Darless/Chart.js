@@ -36,35 +36,40 @@ module.exports = Element.extend({
 		var globalOptionLineElements = globalDefaults.elements.line;
 		var lastDrawnIndex = -1;
 		var index, current, previous, currentVM;
+		var lineOptions;
+		var borderDash;
 
 		// If we are looping, adding the first point again
 		if (me._loop && points.length) {
 			points.push(points[0]);
 		}
 
-		ctx.save();
-
-		// Stroke Line Options
-		ctx.lineCap = vm.borderCapStyle || globalOptionLineElements.borderCapStyle;
-
-		// IE 9 and 10 do not support line dash
-		if (ctx.setLineDash) {
-			ctx.setLineDash(vm.borderDash || globalOptionLineElements.borderDash);
-		}
-
-		ctx.lineDashOffset = valueOrDefault(vm.borderDashOffset, globalOptionLineElements.borderDashOffset);
-		ctx.lineJoin = vm.borderJoinStyle || globalOptionLineElements.borderJoinStyle;
-		ctx.lineWidth = valueOrDefault(vm.borderWidth, globalOptionLineElements.borderWidth);
-		ctx.strokeStyle = vm.borderColor || globalDefaults.defaultColor;
-
-		// Stroke Line
-		ctx.beginPath();
-		lastDrawnIndex = -1;
-
 		for (index = 0; index < points.length; ++index) {
 			current = points[index];
 			previous = helpers.previousItem(points, index);
 			currentVM = current._view;
+			lineOptions = current._lineOptions || {};
+			borderDash = lineOptions.borderDash || globalOptionLineElements.borderDash;
+
+			ctx.save();
+
+			// Stroke Line Options
+			ctx.lineCap = lineOptions.borderCapStyle || globalOptionLineElements.borderCapStyle;
+			ctx.lineDashOffset = valueOrDefault(
+				lineOptions.borderDashOffset,
+				globalOptionLineElements.borderDashOffset);
+			ctx.lineJoin = lineOptions.borderJoinStyle || globalOptionLineElements.borderJoinStyle;
+			ctx.lineWidth = valueOrDefault(lineOptions.borderWidth, globalOptionLineElements.borderWidth);
+			ctx.strokeStyle = lineOptions.borderColor || globalDefaults.defaultColor;
+
+			// IE 9 and 10 do not support line dash
+			if (ctx.setLineDash &&
+				Array.isArray(borderDash)) {
+				ctx.setLineDash(borderDash);
+			}
+
+			// Stroke Line
+			ctx.beginPath();
 
 			// First point moves to it's starting position no matter what
 			if (index === 0) {
@@ -76,9 +81,14 @@ module.exports = Element.extend({
 				previous = lastDrawnIndex === -1 ? previous : points[lastDrawnIndex];
 
 				if (!currentVM.skip) {
+					ctx.moveTo(previous._view.x, previous._view.y);
 					if ((lastDrawnIndex !== (index - 1) && !spanGaps) || lastDrawnIndex === -1) {
-						// There was a gap and this is the first point after the gap
-						ctx.moveTo(currentVM.x, currentVM.y);
+						if (borderDash) {
+							helpers.canvas.lineTo(ctx, previous._view, current._view);
+						} else {
+							// There was a gap and this is the first point after the gap
+							ctx.moveTo(currentVM.x, currentVM.y);
+						}
 					} else {
 						// Line to next point
 						helpers.canvas.lineTo(ctx, previous._view, current._view);
@@ -86,9 +96,8 @@ module.exports = Element.extend({
 					lastDrawnIndex = index;
 				}
 			}
+			ctx.stroke();
+			ctx.restore();
 		}
-
-		ctx.stroke();
-		ctx.restore();
 	}
 });
