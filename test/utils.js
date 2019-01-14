@@ -120,10 +120,35 @@ function triggerMouseEvent(chart, type, el) {
 	node.dispatchEvent(event);
 }
 
+function expectedCanvasCalls(settings) {
+	var context = settings.context;
+	var contains = settings.contains || false;
+	var total = settings.total;
+	var expectedCalls = settings.calls;
+	var contextCalls = context.getCalls();
+	if(contains) {
+		expect(contextCalls).toContain(expectedCalls);
+	} else {
+		expect(contextCalls).toEqual(expectedCalls);
+	}
+	if (settings.total != undefined) {
+		expect(contextCalls.length).toBe(total)
+	}
+}
+
+function canvasCall(name, args) {
+	var obj = {};
+	obj.name = name;
+	obj.args = args;
+	return obj;
+}
+
 module.exports = {
 	injectCSS: injectCSS,
+	canvasCall: canvasCall,
 	createCanvas: createCanvas,
 	acquireChart: acquireChart,
+	expectedCanvasCalls: expectedCanvasCalls,
 	releaseChart: releaseChart,
 	readImageData: readImageData,
 	triggerMouseEvent: triggerMouseEvent,
