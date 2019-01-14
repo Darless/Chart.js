@@ -126,13 +126,13 @@ function expectedCanvasCalls(settings) {
 	var total = settings.total;
 	var expectedCalls = settings.calls;
 	var contextCalls = context.getCalls();
-	if(contains) {
+	if (contains) {
 		expect(contextCalls).toContain(expectedCalls);
 	} else {
 		expect(contextCalls).toEqual(expectedCalls);
 	}
-	if (settings.total != undefined) {
-		expect(contextCalls.length).toBe(total)
+	if (settings.total !== undefined) {
+		expect(contextCalls.length).toBe(total);
 	}
 }
 
