@@ -59,7 +59,7 @@ defaults._set('global', {
 							lineDash: 'borderDash',
 							lineDashOffset: 'borderDashOffset',
 							lineJoin: 'borderJoinStyle',
-							lineWidth: 'borderWdith',
+							lineWidth: 'borderWidth',
 							strokeStyle: 'borderColor',
 							pointStyle: 'pointStyle',
 						},
