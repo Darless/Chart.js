@@ -135,8 +135,7 @@ describe('Plugin.filler', function() {
 						{fill: ''},
 						{fill: null},
 						{fill: []},
-						{fill: {}},
-						{fill: function() {}}
+						{fill: {}}
 					]
 				}
 			});
@@ -155,7 +154,6 @@ describe('Plugin.filler', function() {
 				false, // null
 				false, // array
 				false, // object
-				false, // function
 			]);
 		});
 	});

@@ -81,6 +81,12 @@ module.exports = function(karma) {
 		browserDisconnectTolerance: 3
 	});
 
+	// Set a specific browser for testing.
+	// This is useful when troubleshooting a specific test.
+	if(args.browser) {
+		karma.browsers = [args.browser];
+	}
+
 	// https://swizec.com/blog/how-to-run-javascript-tests-in-chrome-on-travis/swizec/6647
 	if (process.env.TRAVIS) {
 		karma.customLaunchers.chrome.flags.push('--no-sandbox');

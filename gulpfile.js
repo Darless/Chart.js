@@ -149,7 +149,8 @@ function unittestTask(done) {
     args: {
       coverage: !!argv.coverage,
       inputs: (argv.inputs || 'test/specs/**/*.js').split(';'),
-      watch: argv.watch
+      watch: argv.watch,
+      browser: argv.browser
     }
   },
   // https://github.com/karma-runner/gulp-karma/issues/18

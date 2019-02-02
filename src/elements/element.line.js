@@ -38,6 +38,9 @@ module.exports = Element.extend({
 		var index, current, previous, currentVM;
 		var lineOptions;
 		var borderDash;
+		var settings;
+		var previousSettings;
+		var settingsChanged;
 
 		// If we are looping, adding the first point again
 		if (me._loop && points.length) {
@@ -49,27 +52,44 @@ module.exports = Element.extend({
 			previous = helpers.previousItem(points, index);
 			currentVM = current._view;
 			lineOptions = current._lineOptions || {};
-			borderDash = lineOptions.borderDash || globalOptionLineElements.borderDash;
-
-			ctx.save();
-
-			// Stroke Line Options
-			ctx.lineCap = lineOptions.borderCapStyle || globalOptionLineElements.borderCapStyle;
-			ctx.lineDashOffset = valueOrDefault(
-				lineOptions.borderDashOffset,
-				globalOptionLineElements.borderDashOffset);
-			ctx.lineJoin = lineOptions.borderJoinStyle || globalOptionLineElements.borderJoinStyle;
-			ctx.lineWidth = valueOrDefault(lineOptions.borderWidth, globalOptionLineElements.borderWidth);
-			ctx.strokeStyle = lineOptions.borderColor || globalDefaults.defaultColor;
-
-			// IE 9 and 10 do not support line dash
-			if (ctx.setLineDash &&
-				Array.isArray(borderDash)) {
-				ctx.setLineDash(borderDash);
+			settings = {
+				lineCap: lineOptions.borderCapStyle || globalOptionLineElements.borderCapStyle,
+				lineDashOffset: valueOrDefault(
+					lineOptions.borderDashOffset,
+					globalOptionLineElements.borderDashOffset),
+				lineJoin: lineOptions.borderJoinStyle || globalOptionLineElements.borderJoinStyle,
+				lineWidth: valueOrDefault(lineOptions.borderWidth, globalOptionLineElements.borderWidth),
+				strokeStyle: lineOptions.borderColor || globalDefaults.defaultColor,
+				lineDash: lineOptions.borderDash || globalOptionLineElements.borderDash,
+			};
+			settingsChanged = true;
+			if (previousSettings &&
+			    JSON.stringify(settings) == JSON.stringify(previousSettings)) {
+				settingsChanged = false;
 			}
+			if (settingsChanged) {
+				if(previousSettings) {
+					ctx.stroke();
+					ctx.restore();
+				}
+				ctx.save();
 
-			// Stroke Line
-			ctx.beginPath();
+				// Stroke Line Options
+				ctx.lineCap = settings.lineCap;
+				ctx.lineDashOffset = settings.lineDashOffset;
+				ctx.lineJoin = settings.lineJoin;
+				ctx.lineWidth = settings.lineWidth;
+				ctx.strokeStyle = settings.strokeStyle;
+
+				// IE 9 and 10 do not support line dash
+				if (ctx.setLineDash &&
+					Array.isArray(settings.lineDash)) {
+					ctx.setLineDash(settings.lineDash);
+				}
+
+				// Stroke Line
+				ctx.beginPath();
+			}
 
 			// First point moves to it's starting position no matter what
 			if (index === 0) {
@@ -83,7 +103,7 @@ module.exports = Element.extend({
 				if (!currentVM.skip) {
 					ctx.moveTo(previous._view.x, previous._view.y);
 					if ((lastDrawnIndex !== (index - 1) && !spanGaps) || lastDrawnIndex === -1) {
-						if (borderDash) {
+						if (settings.lineDash) {
 							helpers.canvas.lineTo(ctx, previous._view, current._view);
 						} else {
 							// There was a gap and this is the first point after the gap
@@ -96,8 +116,9 @@ module.exports = Element.extend({
 					lastDrawnIndex = index;
 				}
 			}
-			ctx.stroke();
-			ctx.restore();
+			previousSettings = settings;
 		}
+		ctx.stroke();
+		ctx.restore();
 	}
 });
