@@ -77,7 +77,52 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(47);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should draw with straight lines for a tension of 0', function() {
@@ -150,7 +195,52 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(47);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should draw stepped lines, with "before" interpolation', function() {
@@ -228,7 +318,61 @@ describe('Chart.elements.Line', function() {
 			});
 
 			line.draw();
-			expect(mockContext.getCalls().length).toBe(50);
+
+			expect(mockContext.getCalls()).toEqual([{
+				name: 'save',
+				args: [],
+			}, {
+				name: 'setLineCap',
+				args: ['butt']
+			}, {
+				name: 'setLineDash',
+				args: [
+					[]
+				]
+			}, {
+				name: 'setLineDashOffset',
+				args: [0.0]
+			}, {
+				name: 'setLineJoin',
+				args: ['miter']
+			}, {
+				name: 'setLineWidth',
+				args: [3]
+			}, {
+				name: 'setStrokeStyle',
+				args: ['rgba(0,0,0,0.1)']
+			}, {
+				name: 'beginPath',
+				args: []
+			}, {
+				name: 'moveTo',
+				args: [0, 10]
+			}, {
+				name: 'lineTo',
+				args: [5, 10]
+			}, {
+				name: 'lineTo',
+				args: [5, 0]
+			}, {
+				name: 'lineTo',
+				args: [15, 0]
+			}, {
+				name: 'lineTo',
+				args: [15, -10]
+			}, {
+				name: 'lineTo',
+				args: [19, -10]
+			}, {
+				name: 'lineTo',
+				args: [19, -5]
+			}, {
+				name: 'stroke',
+				args: [],
+			}, {
+				name: 'restore',
+				args: []
+			}]);
 		});
 	});
 
@@ -303,7 +447,70 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(53);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [2.5, 10]
+		}, {
+			name: 'lineTo',
+			args: [2.5, 0]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [10, 0]
+		}, {
+			name: 'lineTo',
+			args: [10, -10]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [17, -10]
+		}, {
+			name: 'lineTo',
+			args: [17, -5]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should draw stepped lines, with "after" interpolation', function() {
@@ -377,7 +584,61 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(50);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [0, 0]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [5, -10]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [15, -5]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should draw with custom settings', function() {
@@ -454,7 +715,53 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(47);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['round']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[2, 2]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [1.5]
+		}, {
+			name: 'setLineJoin',
+			args: ['bevel']
+		}, {
+			name: 'setLineWidth',
+			args: [4]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgb(255, 255, 0)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip points correctly', function() {
@@ -524,7 +831,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(45);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'moveTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip points correctly when spanGaps is true', function() {
@@ -595,7 +945,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(45);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip points correctly when all points are skipped', function() {
@@ -669,7 +1062,41 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(40);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip the first point correctly', function() {
@@ -739,7 +1166,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(46);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip the first point correctly when spanGaps is true', function() {
@@ -810,7 +1280,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(46);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip the last point correctly', function() {
@@ -880,7 +1393,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(45);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should skip the last point correctly when spanGaps is true', function() {
@@ -951,7 +1507,50 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(45);
+
+		var expected = [{
+			name: 'save',
+			args: []
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'stroke',
+			args: []
+		}, {
+			name: 'restore',
+			args: []
+		}];
+		expect(mockContext.getCalls()).toEqual(expected);
 	});
 
 	it('should be able to draw with a loop back to the beginning point', function() {
@@ -1023,7 +1622,55 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(59);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'lineTo',
+			args: [0, 10]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should be able to draw with a loop back to the beginning point when there is a skip in the middle of the dataset', function() {
@@ -1096,7 +1743,52 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(57);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'moveTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'lineTo',
+			args: [0, 10]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should be able to draw with a loop back to the beginning point when span gaps is true and there is a skip in the middle of the dataset', function() {
@@ -1170,7 +1862,52 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(57);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'lineTo',
+			args: [0, 10]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should be able to draw with a loop back to the beginning point when the first point is skipped', function() {
@@ -1243,7 +1980,49 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(56);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'lineTo',
+			args: [19, -5]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 
 	it('should be able to draw with a loop back to the beginning point when the last point is skipped', function() {
@@ -1316,6 +2095,51 @@ describe('Chart.elements.Line', function() {
 		});
 
 		line.draw();
-		expect(mockContext.getCalls().length).toBe(57);
+
+		expect(mockContext.getCalls()).toEqual([{
+			name: 'save',
+			args: [],
+		}, {
+			name: 'setLineCap',
+			args: ['butt']
+		}, {
+			name: 'setLineDash',
+			args: [
+				[]
+			]
+		}, {
+			name: 'setLineDashOffset',
+			args: [0.0]
+		}, {
+			name: 'setLineJoin',
+			args: ['miter']
+		}, {
+			name: 'setLineWidth',
+			args: [3]
+		}, {
+			name: 'setStrokeStyle',
+			args: ['rgba(0,0,0,0.1)']
+		}, {
+			name: 'beginPath',
+			args: []
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'lineTo',
+			args: [5, 0]
+		}, {
+			name: 'lineTo',
+			args: [15, -10]
+		}, {
+			name: 'moveTo',
+			args: [0, 10]
+		}, {
+			name: 'stroke',
+			args: [],
+		}, {
+			name: 'restore',
+			args: []
+		}]);
 	});
 });

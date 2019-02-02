@@ -33,8 +33,6 @@ var utils = require('./utils');
 	window.releaseChart = releaseChart;
 	window.waitForResize = utils.waitForResize;
 	window.createMockContext = createMockContext;
-	window.expectedCanvasCalls = utils.expectedCanvasCalls;
-	window.canvasCall = utils.canvasCall;
 
 	// some style initialization to limit differences between browsers across different plateforms.
 	utils.injectCSS(
