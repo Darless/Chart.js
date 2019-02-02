@@ -37,7 +37,6 @@ module.exports = Element.extend({
 		var lastDrawnIndex = -1;
 		var index, current, previous, currentVM;
 		var lineOptions;
-		var borderDash;
 		var settings;
 		var previousSettings;
 		var settingsChanged;
@@ -64,11 +63,11 @@ module.exports = Element.extend({
 			};
 			settingsChanged = true;
 			if (previousSettings &&
-			    JSON.stringify(settings) == JSON.stringify(previousSettings)) {
+				JSON.stringify(settings) === JSON.stringify(previousSettings)) {
 				settingsChanged = false;
 			}
 			if (settingsChanged) {
-				if(previousSettings) {
+				if (previousSettings) {
 					ctx.stroke();
 					ctx.restore();
 				}
