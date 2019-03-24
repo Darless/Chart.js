@@ -75,16 +75,18 @@ module.exports = Element.extend({
 
 				// Stroke Line Options
 				ctx.lineCap = settings.lineCap;
-				ctx.lineDashOffset = settings.lineDashOffset;
-				ctx.lineJoin = settings.lineJoin;
-				ctx.lineWidth = settings.lineWidth;
-				ctx.strokeStyle = settings.strokeStyle;
 
 				// IE 9 and 10 do not support line dash
 				if (ctx.setLineDash &&
 					Array.isArray(settings.lineDash)) {
 					ctx.setLineDash(settings.lineDash);
 				}
+
+				ctx.lineDashOffset = settings.lineDashOffset;
+				ctx.lineJoin = settings.lineJoin;
+				ctx.lineWidth = settings.lineWidth;
+				ctx.strokeStyle = settings.strokeStyle;
+
 
 				// Stroke Line
 				ctx.beginPath();
@@ -98,20 +100,15 @@ module.exports = Element.extend({
 				}
 			} else {
 				previous = lastDrawnIndex === -1 ? previous : points[lastDrawnIndex];
-
 				if (!currentVM.skip) {
-					ctx.moveTo(previous._view.x, previous._view.y);
-					if ((lastDrawnIndex !== (index - 1) && !spanGaps) || lastDrawnIndex === -1) {
-						if (settings.lineDash) {
-							helpers.canvas.lineTo(ctx, previous._view, current._view);
-						} else {
-							// There was a gap and this is the first point after the gap
-							ctx.moveTo(currentVM.x, currentVM.y);
-						}
-					} else {
-						// Line to next point
-						helpers.canvas.lineTo(ctx, previous._view, current._view);
+					// If there was a change in the settings then set draw to
+					// previous point
+					if(settingsChanged) {
+						ctx.moveTo(previous._view.x, previous._view.y);
 					}
+					helpers.canvas.lineTo(ctx,
+										  previous._view,
+										  current._view);
 					lastDrawnIndex = index;
 				}
 			}
